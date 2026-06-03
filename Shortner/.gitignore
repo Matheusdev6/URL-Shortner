@@ -39,3 +39,9 @@ src/main/resources
 ### Arquivos de Sistema ###
 .DS_store
 Thumbs.db
+
+### ENV ###
+
+.env
+*.env
+application-local.properties

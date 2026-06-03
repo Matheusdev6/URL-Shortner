@@ -1,25 +1,26 @@
 package com.linkshortner.Shortner.Entity;
 
 
+import com.linkshortner.Shortner.DTOs.CreateDTO;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "Links")
 @Getter
-public class Request {
+@NoArgsConstructor
+public class TableObject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private final String link;
-    private final String email;
-    private final String code;
-    public Request(String link, String email) {
-        this.link = link;
-        this.email = email;
+    private  String link;
+    private  String email;
+    private  String code;
+    public TableObject(CreateDTO dto) {
+        this.link = dto.getLink();
+        this.email = dto.getEmail();
         this.code = UUID.randomUUID().toString().substring(0,6);
     }
 }
