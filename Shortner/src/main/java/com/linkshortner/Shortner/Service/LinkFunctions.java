@@ -1,6 +1,7 @@
 package com.linkshortner.Shortner.Service;
 
 
+import com.linkshortner.Shortner.DTOs.CreateDTO;
 import com.linkshortner.Shortner.DTOs.GetLinkDTO;
 import com.linkshortner.Shortner.Entity.TableObject;
 import com.linkshortner.Shortner.Exceptions.LinkNotFound;
@@ -21,17 +22,12 @@ public class LinkFunctions {
     }
     // Funções dos Endpoints
 
-    public String ShortLink(TableObject tableObject){
-        if(tableObject != null){
-            tableObjectRepository.save(tableObject);
-            MailService mailService = new MailService();
-            mailService.sendMail(tableObject.getCode(), "Encurtador de links", String.format("Olá, seu link foi encurtado. Aqui está ele: localhost:8080/%s", tableObject.getCode()));
-            return "Link foi encurtado.";
-        } else{
-            NullObject nullObject = new NullObject("The request is null or not completed.");
-            System.out.println(nullObject.getMessage());
-            return "Link não foi encurtado.";
-        }
+    public String ShortLink(CreateDTO dto) {
+        TableObject tableObject = new TableObject();
+        tableObjectRepository.save(tableObject);
+        MailService mailService = new MailService();
+        mailService.sendMail(tableObject.getCode(), "Encurtador de links", String.format("Olá, seu link foi encurtado. Aqui está ele: localhost:8080/%s", tableObject.getCode()));
+        return "Link foi encurtado.";
     }
     public Optional<TableObject> findByCode(String code){
         return tableObjectRepository.findByCode(code);
