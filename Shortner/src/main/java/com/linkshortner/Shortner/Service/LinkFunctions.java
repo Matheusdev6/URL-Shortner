@@ -23,7 +23,7 @@ public class LinkFunctions {
     // Funções dos Endpoints
 
     public String ShortLink(CreateDTO dto) {
-        TableObject tableObject = new TableObject();
+        TableObject tableObject = new TableObject(dto);
         tableObjectRepository.save(tableObject);
         MailService mailService = new MailService();
         mailService.sendMail(tableObject.getCode(), "Encurtador de links", String.format("Olá, seu link foi encurtado. Aqui está ele: localhost:8080/%s", tableObject.getCode()));
